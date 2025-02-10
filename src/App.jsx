@@ -1,50 +1,28 @@
-import Todo from './components/Todo.jsx'
-import Description from './components/Description.jsx'
-import TodoTitle from './components/TodoTitle.jsx'
-import Popup from './components/Popup.jsx'
-import './App.css'
-import {useState} from 'react'
-import Counter from './components/Counter.jsx'
+import "./App.css"
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import Home from "./pages/Home.jsx"
+import About from "./pages/About.jsx"
+import Contact from "./pages/Contact.jsx"
+import Posts from "./pages/Posts.jsx"
+import Nav from "./components/Nav.jsx"
+import Users from "./pages/Users.jsx"
+import User from "./components/User.jsx"
 
 function App() {
-
-
-  const [popupOpen, setPopupOpen] = useState(false);
-  //let popupOpen = false
-
-  function togglePopup() {
-    setPopupOpen(true)
-  }
   
   return (
-    <>
-      
-      <TodoTitle />
-        <div>
-          <input type="text" onChange={(event) => {
-            console.log(event.target.value)
-          }}/>
-          <button onClick={() => setPopupOpen(true)}>Add to do</button>
-        </div>
-
-      <h1>My ToDos</h1>
-      <Todo togglePopup={togglePopup}
-      task="Learn React" 
-      /> 
-
-      <Todo togglePopup={togglePopup}
-      task="Finish ASAP Frontend"
-      />
-
-      <Todo togglePopup={togglePopup}
-      task="Land a junior job"
-      />
-
-      <Todo togglePopup={togglePopup}
-      task="Earn $100K+"
-      />
-      {popupOpen && <Popup title="Are you sure you want to delete System 32??"/>}
-    </>
+    <Router>
+      {/* to get this nav bar to show on every page, we need to put this outside of the <Route></Route> element */}
+      <Nav />
+      <Routes>
+        {/* //define each and every route */}
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/users/:username" element={<Users />}></Route>
+        {/* anything after the semicolon tells React that it will be dynamic */}
+      </Routes>
+      <div></div>
+    </Router>
+    
   )
 }
 
